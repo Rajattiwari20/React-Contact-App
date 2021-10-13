@@ -22,7 +22,7 @@ function App() {
               <h1 style ={{color : "white"}} >Contact List App</h1>
               <Grid container justifyContent = "center" spacing = {3}>
                 <Grid item md = {12}>
-                  <AddContact/>
+                  <AddContact setContacts = {setContacts} contacts ={contacts} />
                 </Grid>
                 { 
                   contacts.length > 0 &&

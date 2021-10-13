@@ -11,6 +11,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 function AddContact(props) {
 
   const [open, setOpen] = useState(false);
+  const [newContact , setNewContact] = useState({});
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,6 +20,45 @@ function AddContact(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+
+  const handelName = (e) => {
+    const newValue = e.target.value
+    setNewContact({
+        ...newContact,
+        name : newValue
+      })
+  };
+  const handelEmail = (e) => {
+    const newValue = e.target.value
+    setNewContact({
+        ...newContact,
+        email : newValue
+      })
+  };
+  const handelContact = (e) => {
+    const newValue = e.target.value
+    setNewContact({
+        ...newContact,
+        contactNo : newValue
+      })
+  };
+  const handleAddress = (e) => {
+    const newValue = e.target.value
+    setNewContact({
+        ...newContact,
+        address : newValue
+      })
+  };
+
+  const handelAdd = () =>{
+      props.setContacts([
+        newContact,
+        ...props.contacts
+      ])
+      setOpen(false);
+    //   console.log("newContact" , newContact)
+  }
 
   return (
     <>
@@ -31,11 +71,12 @@ function AddContact(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="userId"
+            id="name"
             type="input"
             fullWidth
             variant="standard"
             label = "Name"
+            onChange = {(e) => handelName(e)}
             
           />
         </DialogContent>
@@ -43,11 +84,12 @@ function AddContact(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="taskId"
+            id="contact no"
             type="input"
             fullWidth
             variant="standard"
             label = "Contact No"
+            onChange = {(e) => handelContact(e)}
            
           />
         </DialogContent>
@@ -55,27 +97,29 @@ function AddContact(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="task"
+            id="email"
             label="Email "
             type="email"
             fullWidth
             variant="standard" 
+            onChange = {(e) => handelEmail(e)}
           />
         </DialogContent>
         <DialogContent style ={{overflow: "hidden"}}>
           <TextField
             autoFocus
             margin="dense"
-            id="task"
+            id="Address"
             label="Address "
             type="input"
             fullWidth
             variant="standard" 
+            onChange = {(e) => handleAddress(e)}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Add</Button>
+          <Button onClick={handelAdd}>Add</Button>
         </DialogActions>
       </Dialog>
     </>

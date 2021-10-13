@@ -6,9 +6,9 @@ function Contact(props) {
     const {name , email , address , contactNo } = props.contact;
     
 
-    const handelDelete = (name) =>{
+    const handelDelete = (contactNo) =>{
         // console.log("name : ", name )
-        const newArray = props.contacts.filter((item) => item.name !== name);
+        const newArray = props.contacts.filter((item) => item.contactNo !== contactNo);
         props.setContacts(newArray)   
     }
 
@@ -49,7 +49,7 @@ function Contact(props) {
                         <h1 className = "status">{address} </h1>
                         </Grid>
                     </Grid>
-                    <Button variant="contained" color="error"  onClick = {() => handelDelete(props.contact.name)} > Delete Contact</Button>
+                    <Button variant="contained" color="error"  onClick = {() => handelDelete(props.contact.contactNo)} > Delete Contact</Button>
                     
                             
                 </Paper>
