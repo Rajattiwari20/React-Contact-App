@@ -1,15 +1,15 @@
 import  React, {useState} from 'react';
 import {Grid, Paper, Button, TextField} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 function Contact(props) {
 
     const {name , email , address , contactNo } = props.contact;
     
 
     const handelDelete = (contactNo) =>{
-        // console.log("name : ", name )
+        console.log("name : ", contactNo )
         const newArray = props.contacts.filter((item) => item.contactNo !== contactNo);
-        props.setContacts(newArray)   
+        console.log("newArray ==>" , newArray)
+        props.setFilterContact(newArray)   
     }
 
   return (

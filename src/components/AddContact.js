@@ -52,12 +52,11 @@ function AddContact(props) {
   };
 
   const handelAdd = () =>{
-      props.setContacts([
+      props.setFilterContact([
         newContact,
-        ...props.contacts
+        ...props.filterContact
       ])
       setOpen(false);
-    //   console.log("newContact" , newContact)
   }
 
   return (
