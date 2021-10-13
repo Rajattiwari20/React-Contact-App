@@ -9,6 +9,7 @@ function NewConversation() {
         <Grid container>
             <Grid item md = {12} xs = {12} sm = {12} style = {{color : "#6d6d6d" , marginTop : "100px"}}>
                 <h1>No contacts to show</h1>
+                <h1>Please Add Contacts !!!</h1>
             </Grid>
         </Grid>
       </>
