@@ -3,22 +3,11 @@ import {Grid, Paper, Button, TextField} from '@mui/material';
 import DetailsIcon from '@mui/icons-material/Details';
 import ContactDetail from './ContactDetail'
 function Contact(props) {
-
-    const {name , email , address , contactNo } = props.contact;
+    const {name , email , address , contactNo , id } = props.contact;
     
     const [open , setOpen] = useState(false);
     const [showDetail , setShowDetail] = useState(false);
-    // const [updatedList , setUpdatedList] = useState(props.filterContact);
-
-
-    //filltering data on the basics of contact number
-    const handelDelete = (contactNo) =>{
-        // console.log("name : ", contactNo )
-        const newArray = props.filterContact.filter((item) => item.contactNo !== contactNo);
-        // console.log("updatedList ==>" , newArray)
-        props.setFilterContact(newArray)   
-    }
-
+ 
     const handelClick = () =>{
         setOpen(true);
         setShowDetail(true)
@@ -49,7 +38,7 @@ function Contact(props) {
                         <h1 className = "status">{contactNo} </h1>
                         </Grid>
                         <Grid item > 
-                            <Button variant="contained" color="error"  onClick = {() => handelDelete(props.contact.contactNo)} > Delete Contact</Button>
+                            <Button variant="contained" color="error" onClick = {() => props.deleteContact(id)} > Delete Contact</Button>
                         </Grid>
                     </Grid>
                 </Paper>

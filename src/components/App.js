@@ -1,46 +1,59 @@
 import  React, {useState, useEffect} from 'react';
 import { Grid, Paper,TextField, Box} from '@mui/material'
 import AddContact from './AddContact'
-import Contact from './Contact'
-import NoContact from './NoContact'
-import data from '../dummyData'
+import ContactList from './ContactList'
+import {uuid} from 'uuidv4'
 import SearchIcon from '@mui/icons-material/Search';
 
 function App() {
 
   const [contacts , setContacts] = useState([])
-  const [filterContact, setFilterContact] = useState([])
+  const [searchString , setSearchString] = useState("")
+  const [filter , setFilter] = useState([])
 
-  //fillering array to show search result 
-  const filterArray = (value) =>{
-    const newValue = value.toLowerCase().trim()
-    if(!newValue){
-      setFilterContact(data);
-    }
-    else{
-      const newFilteredArray = contacts.filter(item=>{
-        //user can serach contacts from all keys 
-        return Object.keys(item).some(key => {
-          return item[key].toString().toLowerCase().includes(newValue)
-        })
-      });
-      //set the filteredArray
-      setFilterContact(newFilteredArray)
-    }
+  const addContact =(newContact) =>{
+    // console.log("newContact ==>" , newContact)
+    setContacts([...contacts, {id : uuid(), ...newContact}])
   }
 
-  //set the data 
-  useEffect(()=>{
-    setContacts(data)
-    setFilterContact(data);
-  }, [])
+  const deleteContact =(id) =>{
+    const updatedList = contacts.filter((contact) =>{
+      return contact.id !== id;
+    })
+    setContacts(updatedList)
+  }
+ 
 
 // when user will search handleChnage is called
   const handelChange = (e) => {
     const search = e.target.value;
-    filterArray(search)
+    setSearchString(search)
+    if(searchString !== ""){
+      const filterContacts = contacts.filter((contact) =>{
+      return Object.values(contact).
+        join(" ").toLocaleLowerCase().
+        includes(searchString.toLocaleLowerCase())
+      })
+      setFilter(filterContacts)
+    }else{
+      setFilter(contacts)
+    }
 }
 
+//get the data from localStorage
+useEffect(() =>{
+  let contactsList = JSON.parse(localStorage.getItem('contactsList')) 
+  if(contactsList){
+    setContacts(contactsList)
+  }
+
+}, [])
+
+//add data to localStorage
+  useEffect(() =>{
+    localStorage.setItem('contactsList' , JSON.stringify(contacts))
+  }, [contacts])
+  
   return (
     <>
     <Grid container justifyContent = "center"  >
@@ -59,23 +72,15 @@ function App() {
                   </Box>
                 </Grid>
                 <Grid item md = {12}>
-                  <AddContact setFilterContact = {setFilterContact} filterContact ={filterContact} />
+                  <AddContact addContact = {addContact}  />
                 </Grid>
-                {/* Maping the filtered Array */}
-                { 
-                    filterContact.length > 0 ?
-                    filterContact.map((contact) =>{
-                    return (
-                        <Grid item md = {12} sm = {12} xs = {12}>
-                            <Contact  contact = {contact} setFilterContact = {setFilterContact} filterContact ={filterContact}/>
-                        </Grid>
-                    )
-                    })
-                    :
-                      <Grid item md = {12} sm = {12} xs = {12}>
-                              <NoContact/>
-                      </Grid>
-                  }
+                
+                <Grid item md = {12} sm = {12} xs = {12}>
+                    <ContactList
+                      contacts = {searchString.length < 1 ? contacts : filter}
+                      deleteContact = {deleteContact} 
+                    />
+                </Grid>
               </Grid>
           </Paper>
         </Grid>

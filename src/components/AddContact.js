@@ -11,8 +11,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 function AddContact(props) {
 
   const [open, setOpen] = useState(false);
+  const {addContact} = props
   // new contact state 
-  const [newContact , setNewContact] = useState({});
+  const [newContact , setNewContact] = useState({
+    name : "",
+    email : "",
+    contactNo : "",
+    address : ""
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -52,12 +58,19 @@ function AddContact(props) {
       })
   };
 
+  
+
   // on add adding new contact at 0 index and remaing array will remain as it is
   const handelAdd = () =>{
-      props.setFilterContact([
-        newContact,
-        ...props.filterContact
-      ])
+      // props.setFilterContact([
+      //   newContact,
+      //   ...props.filterContact
+      // ])
+      if(newContact.name === "" || newContact.email === "" || newContact.contactNo === "" || newContact.address ===""){
+        alert("All fields are mandatory")
+        return
+      }
+      addContact(newContact)
       setOpen(false);
   }
 
