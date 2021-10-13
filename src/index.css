@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.heading{
+  font-size: 1.2rem;
+  color:  #1986BB;
+}
+
+.status{
+  font-size: 1.2rem;
+  color: #787977;
+}
