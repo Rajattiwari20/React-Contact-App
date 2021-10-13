@@ -1,3 +1,8 @@
+//dummy data => array of objects
+//keys ==> name : string 
+//contactNo : string
+//address : string
+//email : string
 const data = [
     {
     name : "Rajat",

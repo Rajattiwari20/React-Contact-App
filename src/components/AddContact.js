@@ -11,6 +11,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 function AddContact(props) {
 
   const [open, setOpen] = useState(false);
+  // new contact state 
   const [newContact , setNewContact] = useState({});
 
   const handleClickOpen = () => {
@@ -21,7 +22,7 @@ function AddContact(props) {
     setOpen(false);
   };
 
-
+//getting all the values from target value
   const handelName = (e) => {
     const newValue = e.target.value
     setNewContact({
@@ -51,6 +52,7 @@ function AddContact(props) {
       })
   };
 
+  // on add adding new contact at 0 index and remaing array will remain as it is
   const handelAdd = () =>{
       props.setFilterContact([
         newContact,
@@ -61,7 +63,7 @@ function AddContact(props) {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen} style ={{minWidth : "300px" , color : "white", borderColor : "white"}}>
+      <Button variant="outlined" onClick={handleClickOpen} style ={{minWidth : "300px" }}>
         ADD Contact
       </Button>
       <Dialog open={open} onClose={handleClose}>
